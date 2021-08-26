@@ -1,0 +1,25 @@
+#r "Newtonsoft.Json"
+
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+
+public class Customer
+{
+        
+    public string Id { get; set; }
+
+    public string CustomerName { get; set; }
+
+    public string Address { get; set; }
+
+    public string Total {get; set;}
+
+}
+
+public static async Task<IActionResult> Run(HttpRequest req,IEnumerable<Customer> inputDocument, ILogger log)
+{
+    var customers=(List<Customer>) inputDocument;
+    return new OkObjectResult(customers);
+}

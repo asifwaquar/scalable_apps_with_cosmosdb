@@ -1,0 +1,36 @@
+#r "Newtonsoft.Json"
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
+
+
+public class Customer
+{
+        
+    public string Id { get; set; }
+
+    public string CustomerName { get; set; }
+
+    public string Address { get; set; }
+
+    public string Total {get; set;}
+
+}
+public static IActionResult Run(HttpRequest req,out object outputDocument, ILogger log)
+{
+     var requestBody = new StreamReader(req.Body).ReadToEnd();
+    dynamic data = JsonConvert.DeserializeObject(requestBody);
+    outputDocument= new 
+    {
+        Id=data.Id,
+        CustomerName=data.CustomerName,
+        Address=data.Address,
+        Total=data.Total
+    };
+    
+
+    return new OkResult();
+}
